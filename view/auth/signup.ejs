@@ -1,0 +1,63 @@
+<%- include('../includes/head.ejs')%>
+
+<body>
+  <%- include('../includes/navigate.ejs')%>
+
+  <h1 class="title-signUp text-center">Sign Up</h1>
+
+  <% if (errorMessage) { %>
+  <div class="user-message user-message--error"><%= errorMessage %></div>
+  <% } %>
+  <form action="/signup" method="POST" class="form-signIn" novalidate>
+    <div>
+      <label for="username" class="username text-center">Username</label>
+      <input
+        type="text"
+        id="username"
+        name="username"
+        class="input-username font-size <%= validationErrors.find(e => e.param === 'username') ? 'invalid' : '' %>"
+        value="<%= oldInput.username %>"
+      />
+    </div>
+
+    <div>
+      <label for="email" class="email">Email</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        class="input-email font-size <%= validationErrors.find(e => e.param === 'email') ? 'invalid' : '' %>"
+        value="<%= oldInput.email %>"
+      />
+    </div>
+
+    <div>
+      <label for="password" class="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        class="input-password font-size  <%= validationErrors.find(e => e.param === 'password') ? 'invalid' : '' %>"
+        value="<%= oldInput.password %>"
+      />
+    </div>
+
+    <div>
+      <label for="password" class="password">Confirm Password</label>
+      <input
+        class="input-confirm-password font-size  <%= validationErrors.find(e => e.param === 'confirmPassword') ? 'invalid' : '' %>"
+        type="password"
+        name="confirmPassword"
+        id="confirmPassword"
+        value="<%= oldInput.confirmPassword %>"
+      />
+    </div>
+
+    <input type="hidden" name="_csrf" value="<%=csrfToken%>" />
+    <button class="btn-register" type="submit">Signup</button>
+  </form>
+
+  <p class="have-account">
+    Already Have Account? <a href="/login">login here...</a>
+  </p>
+  <%- include('../includes/end.ejs')%>

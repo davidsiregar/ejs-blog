@@ -1,0 +1,13 @@
+<%-include('../includes/head.ejs') %>
+
+    <body>
+<%- include('../includes/navigate.ejs') %>
+        <main class="centered">
+            <h1 class="blog-detail__title"><%= blog.title %></h1>
+            <hr>
+            <div class="blog-detail__image">
+                <img src="/<%= blog.imageUrl %>" alt="<%= blog.title %>">
+            </div>
+            <p class="blog-detail__description"><%= blog.description %></p>
+        </main>
+<%-include('../includes/end.ejs') %>

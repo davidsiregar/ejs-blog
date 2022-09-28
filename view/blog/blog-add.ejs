@@ -1,0 +1,77 @@
+<%-include('../includes/head.ejs')%>
+<body>
+  <%-include('../includes/navigate.ejs')%>
+
+  <h1 class="title-signUp text-center">Write Your Blog</h1>
+
+  <% if(errorMessage){%>
+  <div class="user-message user-message--error"><%= errorMessage %></div>
+  <%}%>
+
+  <form
+    action="/blog/<% if (editing) {%>edit-blog<%} else {%>add-blog<% } %>"
+    method="POST"
+    class="form-write-blog"
+    enctype="multipart/form-data"
+  >
+    <div>
+      <label for="title" class="blog-title ">Title</label><br />
+      <input
+        type="text"
+        id="title"
+        name="title"
+        class="input-title font-size <%= validationErrors.find(e=>e.param ==='title') ? 'invalid' : '' %>"
+        value="<% if(editing || hasError) {%><%= blog.title%><%}%>"
+      />
+    </div>
+
+    <div>
+      <label for="image" class="blog-image">Image</label><br />
+      <input type="file" id="image" name="image" class="btn-image" hidden value="image"/>
+      <label for="image" class="custom-file">Choose File</label>
+    </div>
+<!-- 
+    <div class="form-control">
+      <label for="image" class="blog-image">Image</label><br>
+           <input 
+          type="file" 
+          class="btn-image"
+          name="image" 
+          id="image" >
+  </div> -->
+
+    <div class="form-control">
+      <label for="description" class="blog-desc">Description</label><br>
+      <textarea 
+          class=" input-desc font-size<%= validationErrors.find(e => e.param === 'description') ? 'invalid' : '' %>"
+          name="description" 
+          id="description" 
+          cols="40"
+          rows="5"><% if(editing || hasError) {%><%= blog.description%><%}%></textarea>
+  </div>
+
+    <!-- <div>
+      <label for="description" class="blog-desc">Description</label><br />
+      <textarea
+        rows="5"
+        cols="40"
+        name="description"
+        id="description"
+        class="input-desc <%=validationErrors.find(e=>e.param ==='description') ? 'invalid' :''%>"
+      >
+      <%if (editing || hasError) {%><%= blog.description %><%}%>
+      </textarea>
+    </div> -->
+
+    <% if(editing) {%>
+    <input type="hidden" value="<%= blog._id %>" name="blogId" />
+    <%}%>
+
+    <input type="hidden" name="_csrf" value="<%= csrfToken%>" />
+    <button type="submit" class="submit-blog btn">
+      <% if(editing) {%>Update Blog<%} else {%>Add Blog<%}%>
+    </button>
+  </form>
+
+  <%-include('../includes/end.ejs')%>
+<script src="/js/image.js"></script>

@@ -1,0 +1,43 @@
+<nav>
+  <ul class="nav-list">
+    <li>
+      <a
+        class="nav-list__item <%= path==='/' ? 'active': ''%>"
+        href="/blog/view-blog"
+        >Home</a
+      >
+    </li>
+    <li>
+      <a
+        class="nav-list__item <%= path==='/blog/page-blog' ? 'active': ''%>"
+        href="/blog/page-blog"
+        >Blog Page</a
+      >
+    </li>
+    <% if (isAuthenticated) {%>
+
+  
+    <li>
+      <a
+        class="nav-list__item <%= path==='/blog/add-blog' ? 'active': ''%>"
+        href="/blog/add-blog"
+        >Add Blog</a
+      >
+    </li>
+    <li>
+      <form action="/logout" method="POST">
+        <input type="hidden" name="_csrf" value="<%= csrfToken%>">
+        <button type="submit" class="btn-logout">Logout</button>
+      </form>
+    </li>
+    <li>
+      <img
+        src="/src/andrew-neel-cckf4TsHAuw-unsplash.jpg"
+        alt=""
+        class="nav-img"
+      />
+    </li>
+    <%}%>
+
+  </ul>
+</nav>
